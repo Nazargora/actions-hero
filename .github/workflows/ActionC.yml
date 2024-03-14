@@ -1,0 +1,34 @@
+name: Action C
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        description: 'Enter your name'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Enter your name'
+        required: true
+
+jobs:
+  hi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hi
+        run: echo "Hi, ${{inputs.name}}"
+
+  say_hello:
+    needs: hi
+    uses: Nazargora/Docker-CI-CD/.github/workflows/ActionB.yml@main
+    with:
+        name: ${{inputs.name}}
+
+  say_goodbye:
+    needs: hi
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Goodbye
+        run: echo "Goodbye, ${{inputs.name}}"
