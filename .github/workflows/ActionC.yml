@@ -25,6 +25,7 @@ jobs:
     uses: Nazargora/Docker-CI-CD/.github/workflows/ActionB.yml@main
     with:
         name: ${{inputs.name}}
+    secrets: inherit
 
   say_goodbye:
     needs: hi
